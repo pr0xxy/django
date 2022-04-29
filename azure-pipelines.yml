@@ -38,15 +38,3 @@ steps:
       print('Found Django project in', project_location)
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
-- script: |
-    python -m pip install --upgrade pip setuptools wheel
-    python -m pip install -e ..
-    pip install -r test/requirements/py3.txt
-    ./runtests.py
-  displayName: 'Install prerequisites'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: "**/TEST-*.xml"
-    testRunTitle: 'Python $(PYTHON_VERSION)'
-  condition: succeededOrFailed()
